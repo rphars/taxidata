@@ -14,7 +14,7 @@ The primary file is taxi_data.parquet. However, this file contains >3m rows. We 
 
 ## Loading the Data in R
 
-To load the Parquet file directly from this repository, use the following snippet. Note that we must download the file to a temporary location first because the `arrow` package requires a seekable file connection.
+To load the Parquet file directly from this repository, use the following code.
 
 ```r
 # Required libraries
