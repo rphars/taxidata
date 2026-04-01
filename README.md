@@ -82,7 +82,7 @@ weather_clean <- as.data.frame(weather_raw$hourly) %>%
 # weather data can be joined based on date and hour. Achieving this is left up to you.
 ```
 
-##Loading the Data in Python
+## Loading the Data in Python
 ```bash
 ### 1. Install Required Packages
 Run this in your terminal (not your Python script) to ensure you have the necessary libraries:
