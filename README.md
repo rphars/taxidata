@@ -20,7 +20,7 @@ The primary file is taxi_data.parquet. However, this file contains >3m rows. We 
 
 ## Loading the Data in R
 
-To load the Parquet file directly from this repository, use the following code.
+To load the Parquet data directly from this repository, use the following code.
 
 ```r
 # Required libraries
@@ -44,6 +44,29 @@ econdata<-read.csv2(paste(gh_url,'econdata_simpl.csv',sep=""))
 #without the csv2, as this file _does_ have comma separated values.
 company_data<-read.csv(paste(gh_url,'Issued_Licenses_20260401.csv',sep=""))
 
+#Note, you probably want to filter columns first to only select those you want before you combine with the rest
+demdata_subset <- demdata %>%
+  #add columns where desired
+  select(GeoID,Pop_1E)
+
+
+#Files can be joined together using the NTA id. 
+#We do this twice, because there's two locations: pickup and dropoff.
+
+#the rename_with makes sure that all columns added for pickup are prefaced by PU, and DO for dropoff
+taxi_data<- taxi_data%>%
+  left_join(
+    demdata_subset %>% rename_with(~ paste0("PU_", .), -GeoID), 
+    by = c("PU_NTA_Code" = "GeoID")
+  ) 
+
+taxi_data<-taxi_data%>%
+  left_join(
+    demdata_subset %>% rename_with(~ paste0("DO_", .), -GeoID), 
+    by = c("DO_NTA_Code" = "GeoID")
+  )
+
+
 #Download weather data with
 api_url <- "https://archive-api.open-meteo.com/v1/archive?latitude=40.7831&longitude=-73.9712&start_date=2026-02-01&end_date=2026-02-28&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,snowfall,snow_depth,pressure_msl,cloud_cover,wind_speed_10m,sunshine_duration,is_day&timezone=America%2FNew_York"
 weather_raw <- fromJSON(api_url)
@@ -56,4 +79,5 @@ weather_clean <- as.data.frame(weather_raw$hourly) %>%
   ) %>%
   # Drop the raw string time and raw sunshine seconds
   select(-time, -sunshine_duration)
+# weather data can be joined based on date and hour. Achieving this is left up to you.
 
