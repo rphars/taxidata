@@ -80,16 +80,19 @@ weather_clean <- as.data.frame(weather_raw$hourly) %>%
   # Drop the raw string time and raw sunshine seconds
   select(-time, -sunshine_duration)
 # weather data can be joined based on date and hour. Achieving this is left up to you.
-
+```
 
 ##Loading the Data in Python
-```Python
+```bash
 ### 1. Install Required Packages
 Run this in your terminal (not your Python script) to ensure you have the necessary libraries:
-```bash
-pip install pandas fastparquet requestsimport pandas as pd
-import requests
+pip install pandas fastparquet requests
+```
 
+```Python
+import requests
+import pandas as pd
+import fastparquet
 # GitHub URL for the raw data
 gh_url = "[https://raw.githubusercontent.com/rphars/taxidata/main/](https://raw.githubusercontent.com/rphars/taxidata/main/)"
 
@@ -146,4 +149,4 @@ taxi_data = pd.merge(
 # (Positron / Jupyter Users Only) 
 # Open the dataframe in the Data Viewer
 %view taxi_data
-
+```
