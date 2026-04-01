@@ -81,3 +81,69 @@ weather_clean <- as.data.frame(weather_raw$hourly) %>%
   select(-time, -sunshine_duration)
 # weather data can be joined based on date and hour. Achieving this is left up to you.
 
+
+##Loading the Data in Python
+```Python
+### 1. Install Required Packages
+Run this in your terminal (not your Python script) to ensure you have the necessary libraries:
+```bash
+pip install pandas fastparquet requestsimport pandas as pd
+import requests
+
+# GitHub URL for the raw data
+gh_url = "[https://raw.githubusercontent.com/rphars/taxidata/main/](https://raw.githubusercontent.com/rphars/taxidata/main/)"
+
+# 1. Download and Read the 100k Taxi Data file.
+# We explicitly use 'fastparquet' as the engine for speed and reliability
+taxi_data = pd.read_parquet(f"{gh_url}taxi_data_100k.parquet", engine='fastparquet')
+
+# 2. Load the Census/Economic Data
+# Note: R's read.csv2 defaults to semicolon separators. In pandas, we explicitly set sep=";".
+# low_memory=False prevents pandas from guessing data types on massive census files.
+demdata = pd.read_csv(f"{gh_url}demdata_simpl.csv", sep=";", low_memory=False)
+socdata = pd.read_csv(f"{gh_url}socdata_simpl.csv", sep=";", low_memory=False)
+housingdata = pd.read_csv(f"{gh_url}housingdata_simpl.csv", sep=";", low_memory=False)
+econdata = pd.read_csv(f"{gh_url}econdata_simpl.csv", sep=";", low_memory=False)
+
+# The standard comma-separated company data file
+company_data = pd.read_csv(f"{gh_url}Issued_Licenses_20260401.csv", low_memory=False)
+
+# ---------------------------------------------------------
+# Joining the Data (Pickup and Dropoff)
+# ---------------------------------------------------------
+
+# Filter demographic columns to only select those you want to merge
+demdata_subset = demdata[['GeoID', 'Pop_1E']].copy()
+
+# -- 1. Join for Pickup (PU) --
+# Create a dictionary to rename all columns (except GeoID) with a "PU_" prefix
+pu_rename = {col: f"PU_{col}" for col in demdata_subset.columns if col != 'GeoID'}
+demdata_pu = demdata_subset.rename(columns=pu_rename)
+
+# Perform the left join and drop the redundant RHS key
+taxi_data = pd.merge(
+    taxi_data, 
+    demdata_pu, 
+    how="left", 
+    left_on="PU_NTA_Code", 
+    right_on="GeoID"
+).drop(columns=['GeoID'])
+
+# -- 2. Join for Dropoff (DO) --
+# Create a dictionary to rename all columns (except GeoID) with a "DO_" prefix
+do_rename = {col: f"DO_{col}" for col in demdata_subset.columns if col != 'GeoID'}
+demdata_do = demdata_subset.rename(columns=do_rename)
+
+# Perform the left join and drop the redundant RHS key
+taxi_data = pd.merge(
+    taxi_data, 
+    demdata_do, 
+    how="left", 
+    left_on="DO_NTA_Code", 
+    right_on="GeoID"
+).drop(columns=['GeoID'])
+
+# (Positron / Jupyter Users Only) 
+# Open the dataframe in the Data Viewer
+%view taxi_data
+
