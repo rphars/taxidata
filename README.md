@@ -102,7 +102,7 @@ gh_url = "[https://raw.githubusercontent.com/rphars/taxidata/main/](https://raw.
 taxi_data = pd.read_parquet(f"{gh_url}taxi_data_100k.parquet", engine='fastparquet')
 
 # 2. Load the Census/Economic Data
-# Note: R's read.csv2 defaults to semicolon separators. In pandas, we explicitly set sep=";".
+# Note: In pandas, we explicitly set sep=";".
 # low_memory=False prevents pandas from guessing data types on massive census files.
 demdata = pd.read_csv(f"{gh_url}demdata_simpl.csv", sep=";", low_memory=False)
 socdata = pd.read_csv(f"{gh_url}socdata_simpl.csv", sep=";", low_memory=False)
@@ -116,7 +116,7 @@ company_data = pd.read_csv(f"{gh_url}Issued_Licenses_20260401.csv", low_memory=F
 # Joining the Data (Pickup and Dropoff)
 # ---------------------------------------------------------
 
-# Filter demographic columns to only select those you want to merge
+# Filter demographic columns to only select those you want to merge. You can add columns and -of course- the other datasets here.
 demdata_subset = demdata[['GeoID', 'Pop_1E']].copy()
 
 # -- 1. Join for Pickup (PU) --
@@ -147,7 +147,7 @@ taxi_data = pd.merge(
     right_on="GeoID"
 ).drop(columns=['GeoID'])
 
-# (Positron / Jupyter Users Only) 
+# Positron only
 # Open the dataframe in the Data Viewer
 %view taxi_data
 ```
