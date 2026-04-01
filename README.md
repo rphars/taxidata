@@ -83,9 +83,10 @@ weather_clean <- as.data.frame(weather_raw$hourly) %>%
 ```
 
 ## Loading the Data in Python
+Run this in your terminal (not your Python script) to ensure you have the necessary libraries:
+
 ```bash
 ### 1. Install Required Packages
-Run this in your terminal (not your Python script) to ensure you have the necessary libraries:
 pip install pandas fastparquet requests
 ```
 Then add this to your python script and run.
