@@ -16,7 +16,7 @@ The primary file is taxi_data.parquet. However, this file contains >3m rows. We 
 * For the primary file, find the dictionary here: https://www.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_yellow.pdf
 * For the econ/demo/socio/housing dictionary, download data_dict_overall.xlsx from this repository.
 * For the business licenses dictionary, see https://data.cityofnewyork.us/Business/Issued-Licenses/w7w3-xahh/about_data
-* Weather data is not part of this repository
+* Weather data is added in the code below, it needs to files from this repository
 
 ## Loading the Data in R
 
