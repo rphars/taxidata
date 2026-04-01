@@ -9,7 +9,7 @@ This repository contains the integrated datasets for the Customer Models course.
 
 ---
 
-##The Dataset
+## The Dataset
 The primary file is taxi_data.parquet. However, this file contains >3m rows. We therefore recommend you use taxi_data_100k.parquet instead, which contains a random sample of 100.000 taxi rides.
 
 ## Loading the Data in R
