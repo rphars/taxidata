@@ -112,9 +112,7 @@ econdata = pd.read_csv(f"{gh_url}econdata_simpl.csv", sep=";", low_memory=False)
 # The standard comma-separated company data file
 company_data = pd.read_csv(f"{gh_url}Issued_Licenses_20260401.csv", low_memory=False)
 
-# ---------------------------------------------------------
 # Joining the Data (Pickup and Dropoff)
-# ---------------------------------------------------------
 
 # Filter demographic columns to only select those you want to merge. You can add columns and -of course- the other datasets here.
 demdata_subset = demdata[['GeoID', 'Pop_1E']].copy()
