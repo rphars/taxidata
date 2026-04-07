@@ -103,7 +103,6 @@ gh_url = "https://raw.githubusercontent.com/rphars/taxidata/main/"
 taxi_data = pd.read_parquet(f"{gh_url}taxi_data_100k.parquet", engine='fastparquet')
 
 # 2. Load the Census/Economic Data
-# Note: In pandas, we explicitly set sep=";".
 # low_memory=False prevents pandas from guessing data types on massive census files.
 demdata = pd.read_csv(f"{gh_url}demdata_simpl.csv", sep=";", low_memory=False)
 socdata = pd.read_csv(f"{gh_url}socdata_simpl.csv", sep=";", low_memory=False)
@@ -120,7 +119,7 @@ company_data = pd.read_csv(f"{gh_url}Issued_Licenses_20260401.csv", low_memory=F
 # Filter demographic columns to only select those you want to merge. You can add columns and -of course- the other datasets here.
 demdata_subset = demdata[['GeoID', 'Pop_1E']].copy()
 
-# -- 1. Join for Pickup (PU) --
+# Join for Pickup (PU)
 # Create a dictionary to rename all columns (except GeoID) with a "PU_" prefix
 pu_rename = {col: f"PU_{col}" for col in demdata_subset.columns if col != 'GeoID'}
 demdata_pu = demdata_subset.rename(columns=pu_rename)
@@ -134,7 +133,7 @@ taxi_data = pd.merge(
     right_on="GeoID"
 ).drop(columns=['GeoID'])
 
-# -- 2. Join for Dropoff (DO) --
+# 2. Join for Dropoff (DO)
 # Create a dictionary to rename all columns (except GeoID) with a "DO_" prefix
 do_rename = {col: f"DO_{col}" for col in demdata_subset.columns if col != 'GeoID'}
 demdata_do = demdata_subset.rename(columns=do_rename)
