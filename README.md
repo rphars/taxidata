@@ -96,7 +96,7 @@ import requests
 import pandas as pd
 import fastparquet
 # GitHub URL for the raw data
-gh_url = "[https://raw.githubusercontent.com/rphars/taxidata/main/](https://raw.githubusercontent.com/rphars/taxidata/main/)"
+gh_url = "https://raw.githubusercontent.com/rphars/taxidata/main/"
 
 # 1. Download and Read the 100k Taxi Data file.
 # We explicitly use 'fastparquet' as the engine for speed and reliability
