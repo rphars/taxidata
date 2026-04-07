@@ -2,10 +2,11 @@
 NYC taxi datasets for Customer Models
 
 # Customer Models: Insights in the NYC Taxi Market (2026)
-This repository contains the integrated datasets for the Customer Models course. This dataset:
-* Takes the raw taxi data for February 2026 from https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page and adds an NTA code (useful to connect data to other NY open data)
-* Contains additional data on demographics, housing, and socio-economics (including NTA codes)
+This repository contains datasets for the Customer Models group assignment. These datasets consist of:
+* A dataset equal to the raw taxi data for February 2026 from https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page, but including an NTA code (useful to connect data to other NY open data)
+* Contains additional data on demographics, housing, and socio-economics (joinable using NTA codes)
 * Contains a file on licensed businesses at the NTA level
+* The text below also contains instructions on joining weather data.
 
 ---
 
