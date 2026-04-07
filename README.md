@@ -11,7 +11,7 @@ This repository contains datasets for the Customer Models group assignment. Thes
 ---
 
 ## The Dataset
-The primary file is taxi_data.parquet. However, this file contains >3m rows. We therefore recommend you use taxi_data_100k.parquet instead, which contains a random sample of 100.000 taxi rides. You may want to use a smaller subsample initially to speed up code development and model estimation.
+The primary file is taxi_data.parquet. However, this file contains >3m rows. We therefore recommend you use taxi_data_100k.parquet instead, which contains a random sample of 100.000 taxi rides. You may want to use a much smaller sample initially to speed up code development and model estimation.
 
 ## Data Dictionaries
 * For the primary file, find the dictionary here: https://www.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_yellow.pdf
