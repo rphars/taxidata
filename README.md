@@ -3,15 +3,17 @@ NYC taxi datasets for Customer Models
 
 # Customer Models: Insights in the NYC Taxi Market (2026)
 This repository contains datasets for the Customer Models group assignment. These datasets consist of:
-* A dataset equal to the raw taxi data for February 2026 from https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page, but including an NTA code (useful to connect data to other NY open data)
-* Contains additional data on demographics, housing, and socio-economics (joinable using NTA codes)
+* A dataset based on 100.000 samples from the February 2026 taxi dataset at https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page. In addition, this sample is enriches with:
+* An NTA code (useful to connect data to other NY open data)
+* Has additional datasets on demographics, housing, and socio-economics (joinable using NTA codes)
 * Contains a file on licensed businesses at the NTA level
+* Has two additional columns: est_empty_time and event_status. These represent the time in minutes that a taxi has (likely) spent waiting. event_status signifies whether the cab picked up a passenger (1) or stopped waiting (0).
 * The text below also contains instructions on joining weather data.
 
 ---
 
 ## The Dataset
-The primary file is taxi_data.parquet. However, this file contains >3m rows. We therefore recommend you use taxi_data_100k.parquet instead, which contains a random sample of 100.000 taxi rides. You may want to use a much smaller sample initially to speed up code development and model estimation.
+You may want to draw a sample smaller than 100.000 to speed up initial model design/estimation.
 
 ## Data Dictionaries
 * For the primary file, find the dictionary here: https://www.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_yellow.pdf
